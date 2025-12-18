@@ -39,7 +39,7 @@ const TodoPage = () => {
 
   return (
     <TodoContext.Provider value={{ clickHandler, fetchTodos }}>
-      <div className="bg-white rounded-2xl w-1/2 h-full flex flex-col p-10 gap-4">
+      <div className="bg-white rounded-2xl min-w-1/2 h-full flex flex-col p-10 gap-4">
         <Title />
         <BodySec query={query} setQuery={setQuery} todos={todo}/>
         <div className="bg-green-50 w-full flex flex-col gap-6 py-5">

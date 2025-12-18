@@ -1,6 +1,7 @@
 import { Services } from "../api"
 import { useContext } from "react"
 import { TodoContext } from "../pages/TodoPage"
+import axios from "axios"
 
 interface Props {
     open: boolean;
@@ -17,6 +18,7 @@ const Add = ({ open, setOpen }: Props) => {
         
         if (title?.trim()) {
             await Services.putData(title, description)
+            //axios.post('https://todo-using-nextjs-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json', { title, description })
             fetchTodos()
             setOpen(false)
         } else {

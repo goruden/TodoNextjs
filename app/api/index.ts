@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase'
+import axios from 'axios'
 
 export interface apiProps {
   id?: string
@@ -7,6 +8,8 @@ export interface apiProps {
   date: string
   status: 'remaining' | 'completed'
 }
+
+const url = 'https://todo-using-nextjs-default-rtdb.asia-southeast1.firebasedatabase.app'
 
 export const Services = {
   getAll: async () => {
@@ -39,10 +42,12 @@ export const Services = {
       throw error
     }
   },
+  //axios.post('https://todo-using-nextjs-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json', { title, description })
   putData: async ( title: string, description: string) => {
     const { error } = await supabase
     .from('todos')
     .insert({ title: title, description: description, date: new Date().toISOString(), status: 'remaining'})
+    // axios.post(url + '/todos.json', { title: title, description: description, date: new Date().toISOString(), status: 'remaining'})
     if (error) {
       console.error(error)
       throw error

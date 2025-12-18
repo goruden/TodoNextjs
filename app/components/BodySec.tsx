@@ -19,7 +19,7 @@ const BodySec = ({query, setQuery, todos}: Props) => {
                       onChange={(e) => setQuery(e.target.value)}
                 />
             </div>
-            <div className="flex gap-20 justify-center ">
+            <div className="flex gap-1 md:gap-20 justify-center ">
                 <CatButton todo={todos} type="all" />
                 <CatButton todo={todos} type="remaining" />
                 <CatButton todo={todos} type="completed" />
