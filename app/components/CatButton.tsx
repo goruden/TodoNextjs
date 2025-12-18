@@ -1,12 +1,15 @@
 import { apiProps } from "../api"
+import { useContext } from "react"
+import { TodoContext } from "../pages/TodoPage"
 
 interface Props{
-    clickHandler: (filterType: string) => void
     type: string
     todo: apiProps[]
 }
 
-const CatButton = ({clickHandler, type, todo}: Props) => {
+const CatButton = ({type, todo}: Props) => {
+    const { clickHandler } = useContext(TodoContext);
+
   return (
     <button 
         onClick={() => {

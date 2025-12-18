@@ -32,7 +32,7 @@ const ItemList = ({item, onOrderCreated}: Props) => {
             <button className="cursor-pointer bg-blue-300 hover:bg-blue-400 p-2 rounded-lg" onClick={() => setUpdateOpen(true)}>Update</button>
             {
               updateOpen === true &&
-              <Update open={updateOpen} setOpen={setUpdateOpen} onOrderCreated={onOrderCreated} item={item} />
+              <Update open={updateOpen} setOpen={setUpdateOpen} item={item} />
             }
             <button className="cursor-pointer bg-red-300 hover:bg-red-400 p-2 rounded-lg" onClick={() => setDeleteOpen(true)}>Delete</button>
             {

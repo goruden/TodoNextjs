@@ -1,5 +1,7 @@
 import { useState } from "react"
 import { Services, apiProps } from "../api"
+import { useContext } from "react"
+import { TodoContext } from "../pages/TodoPage"
 
 function GetFormattedDate(date: string) {
     const dateObj = new Date(date);
@@ -14,12 +16,12 @@ function GetFormattedDate(date: string) {
 interface Props {
     open: boolean;
     setOpen: (open: boolean) => void;
-    onOrderCreated: () => void;
     item: apiProps;
 }
 
-const Update = ({ open, setOpen, onOrderCreated, item }: Props) => {
+const Update = ({ open, setOpen, item }: Props) => {
     const [editItem, setEditItem] = useState(item)
+    const { fetchTodos } = useContext(TodoContext);
 
     if (!open) return null
     const clickHandler = async () => {
@@ -28,7 +30,7 @@ const Update = ({ open, setOpen, onOrderCreated, item }: Props) => {
             return
         }
         await Services.updateData(editItem.title, editItem.description, item.id, editItem.status)
-        onOrderCreated()
+        fetchTodos()
         setOpen(false)
     }
 
