@@ -45,7 +45,7 @@ const TodoPage = () => {
         <div className="bg-green-50 w-full flex flex-col gap-6 py-5">
           {filteredItems.length === 0 
             ? <p className='text-center text-2xl font-bold my-20'>No items found</p>
-            : filteredItems.sort((b, a) => a.status.localeCompare(b.status)).map((item) => {
+            : filteredItems.sort((b, a) => a.date.localeCompare(b.date)).sort((b, a) => a.status.localeCompare(b.status)).map((item) => {
                 if (filter === 'all' || item.status === filter) {
                   return (
                     <ItemList key={item.id} item={item} onOrderCreated={fetchTodos}/>

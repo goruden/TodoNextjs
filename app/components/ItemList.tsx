@@ -25,7 +25,7 @@ const ItemList = ({item, onOrderCreated}: Props) => {
           </button>
         </div>
         <div className='flex-1 flex flex-col'>
-            <div>{item.title}</div>
+            <div className={`${item.status === 'completed' ? 'line-through' : ''}`}>{item.title}</div>
             <div className={`${item.status === 'completed' ? 'line-through' : ''} text-gray-500 text-xs`}>{item.description}</div>
         </div>
         <div className='flex gap-5'>
