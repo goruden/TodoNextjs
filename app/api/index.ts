@@ -1,5 +1,4 @@
 import { supabase } from '../lib/supabase'
-import axios from 'axios'
 
 export interface apiProps {
   id?: string
@@ -9,58 +8,112 @@ export interface apiProps {
   status: 'remaining' | 'completed'
 }
 
-const url = 'https://todo-using-nextjs-default-rtdb.asia-southeast1.firebasedatabase.app'
 
 export const Services = {
   getAll: async () => {
-    const { data, error } = await supabase
-    .from('todos')
-    .select()
-    if (error) {
-      console.error(error)
-      throw error
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) {
+      window.location.href = '/auth'
+      throw new Error('Not authenticated')
     }
+
+    const { data, error } = await supabase
+      .from('todos')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('date', { ascending: false })
+
+    if (error) throw error
     return data
   },
-  updateData: async ( title: string, description: string, id: string, status: string) => {
+
+  updateData: async (
+    title: string,
+    description: string,
+    id: string,
+    status: string
+  ) => {
     const { error } = await supabase
-    .from('todos')
-    .update({ title: title, description: description, status: status })
-    .eq('id', id)
+      .from('todos')
+      .update({ title, description, status })
+      .eq('id', id)
+
     if (error) {
       console.error(error)
       throw error
     }
   },
-  updateStatus: async ( id:string, status:string) => {
+
+  updateStatus: async (id: string, status: 'remaining' | 'completed') => {
     const { error } = await supabase
-    .from('todos')
-    .update({status:status})
-    .eq('id', id)
-    if (error) {
-      console.error(error)
-      throw error
-    }
+      .from('todos')
+      .update({ status })
+      .eq('id', id)
+
+    if (error) throw error
   },
-  //axios.post('https://todo-using-nextjs-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json', { title, description })
-  putData: async ( title: string, description: string) => {
-    const { error } = await supabase
-    .from('todos')
-    .insert({ title: title, description: description, date: new Date().toISOString(), status: 'remaining'})
-    // axios.post(url + '/todos.json', { title: title, description: description, date: new Date().toISOString(), status: 'remaining'})
-    if (error) {
-      console.error(error)
-      throw error
-    }
+
+  putData: async (title: string, description: string) => {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) throw new Error('Not authenticated')
+
+    const { error } = await supabase.from('todos').insert({
+      title,
+      description,
+      date: new Date().toISOString(),
+      status: 'remaining',
+      user_id: user.id
+    })
+
+    if (error) throw error
   },
+
   deleteData: async (id: string) => {
     const { error } = await supabase
-    .from('todos')
-    .delete()
-    .eq('id', id)
-    if (error) {
-      console.error(error)
-      throw error
+      .from('todos')
+      .delete()
+      .eq('id', id)
+
+    if (error) throw error
+  },
+
+  signUp: async (username: string, password: string) => {
+    const email = `${username}@todo.app`
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password
+    })
+
+    if (error) throw error
+
+    if (data.user) {
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .insert({
+          id: data.user.id,
+          username
+        })
+
+      if (profileError) {
+        throw profileError
+      }
     }
+
+  },
+
+  login: async (username: string, password: string) => {
+    const email = `${username}@todo.app`
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
+
+    if (error) throw error
+  },
+
+  logout: async () => {
+    await supabase.auth.signOut()
   }
 }
