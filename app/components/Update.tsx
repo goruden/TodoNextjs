@@ -4,24 +4,24 @@ import { useContext } from "react"
 import { TodoContext } from "../pages/TodoPage"
 
 function GetFormattedDate(date: string) {
-    const dateObj = new Date(date);
-    var month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
-    var day  = ("0" + (dateObj.getDate())).slice(-2);
-    var year = dateObj.getFullYear();
-    var hour =  ("0" + (dateObj.getHours())).slice(-2);
-    var min =  ("0" + (dateObj.getMinutes())).slice(-2);
-    return year + "-" + month + "-" + day + " " + hour + ":" + min;
+    const dateObj = new Date(date)
+    var month = ("0" + (dateObj.getMonth() + 1)).slice(-2)
+    var day = ("0" + (dateObj.getDate())).slice(-2)
+    var year = dateObj.getFullYear()
+    var hour = ("0" + (dateObj.getHours())).slice(-2)
+    var min = ("0" + (dateObj.getMinutes())).slice(-2)
+    return year + "-" + month + "-" + day + " " + hour + ":" + min
 }
 
 interface Props {
-    open: boolean;
-    setOpen: (open: boolean) => void;
-    item: apiProps;
+    open: boolean
+    setOpen: (open: boolean) => void
+    item: apiProps
 }
 
 const Update = ({ open, setOpen, item }: Props) => {
     const [editItem, setEditItem] = useState(item)
-    const { fetchTodos } = useContext(TodoContext);
+    const { fetchTodos } = useContext(TodoContext)
 
     if (!open) return null
     const clickHandler = async () => {
@@ -38,8 +38,8 @@ const Update = ({ open, setOpen, item }: Props) => {
         <div className='fixed w-full h-full top-0 left-0 bg-black/40 flex items-center justify-center'>
             <div className='bg-white w-1/2 flex flex-col py-5 px-10 rounded-2xl gap-3'>
                 <p className="text-2xl font-bold">Update Todo</p>
-                <input className='bg-gray-300 p-2 rounded' type="text" placeholder='Title' value={editItem.title} onChange={(e) => setEditItem({...editItem, title: e.target.value})} />
-                <textarea className='bg-gray-300 p-2 rounded' placeholder='Description' value={editItem.description} onChange={(e) => setEditItem({...editItem, description: e.target.value})} />
+                <input className='bg-gray-300 p-2 rounded' type="text" placeholder='Title' value={editItem.title} onChange={(e) => setEditItem({ ...editItem, title: e.target.value })} />
+                <textarea className='bg-gray-300 p-2 rounded' placeholder='Description' value={editItem.description} onChange={(e) => setEditItem({ ...editItem, description: e.target.value })} />
                 <input disabled className='bg-gray-200 p-2 rounded' type="text" value={GetFormattedDate(item.date)} />
                 <input disabled className='bg-gray-200 p-2 rounded' type="text" value={item.status} />
                 <div className='flex gap-10 justify-center px-10'>

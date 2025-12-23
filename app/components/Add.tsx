@@ -4,18 +4,18 @@ import { TodoContext } from "../pages/TodoPage"
 import axios from "axios"
 
 interface Props {
-    open: boolean;
-    setOpen: (open: boolean) => void;
+    open: boolean
+    setOpen: (open: boolean) => void
 }
 
 const Add = ({ open, setOpen }: Props) => {
     if (!open) return null
-    const { fetchTodos } = useContext(TodoContext);
+    const { fetchTodos } = useContext(TodoContext)
 
     const clickHandler = async () => {
         const title = document.querySelector('input')?.value
         const description = document.querySelector('textarea')?.value || ''
-        
+
         if (title?.trim()) {
             await Services.putData(title, description)
             //axios.post('https://todo-using-nextjs-default-rtdb.asia-southeast1.firebasedatabase.app/todos.json', { title, description })
@@ -25,7 +25,7 @@ const Add = ({ open, setOpen }: Props) => {
             alert('Title is required')
         }
     }
-    
+
     return (
         <div className='fixed w-full h-full top-0 left-0 bg-black/40 flex items-center justify-center'>
             <div className='bg-white w-1/2 flex flex-col py-5 px-10 rounded-2xl gap-3'>

@@ -5,7 +5,7 @@ import { Services } from "@/app/api"
 const Title = () => {
   const [open, setOpen] = useState(false)
   const logout = async () => {
-    const confirmed = confirm("Are you sure you want to log out?");
+    const confirmed = confirm("Are you sure you want to log out?")
     if (confirmed) {
       await Services.logout()
       window.location.href = '/auth'
