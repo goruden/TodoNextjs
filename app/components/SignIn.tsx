@@ -10,11 +10,13 @@ const SignIn = ({ setIsSignUp }: { setIsSignUp: (isSignUp: boolean) => void }) =
   const [loading, setLoading] = useState(false)
 
   const changeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value)
+    const newUsername = e.target.value
+    setUsername(newUsername)
   }
 
   const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value)
+    const newPassword = e.target.value
+    setPassword(newPassword)
   }
 
   const signin = async () => {

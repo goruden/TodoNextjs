@@ -50,7 +50,7 @@ const TodoPage = () => {
             : filteredItems.sort((b, a) => a.date.localeCompare(b.date)).sort((b, a) => a.status.localeCompare(b.status)).map((item) => {
               if (filter === 'all' || item.status === filter) {
                 return (
-                  <ItemList key={item.id} item={item} onOrderCreated={fetchTodos} />
+                  <ItemList key={item.id} item={item} onOrderCreated={fetchTodos} query={query} />
                 )
               }
             })

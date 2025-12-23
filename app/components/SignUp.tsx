@@ -11,17 +11,20 @@ const SignUp = ({ setIsSignUp }: { setIsSignUp: (isSignUp: boolean) => void }) =
 
   const [loading, setLoading] = useState(false)
 
-  const changeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value)
-  }
+  // const changeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const newUsername = e.target.value
+  //   setUsername(newUsername)
+  // }
 
-  const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value)
-  }
+  // const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const newPassword = e.target.value
+  //   setPassword(newPassword)
+  // }
 
-  const changeConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setConfirmPassword(e.target.value)
-  }
+  // const changeConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const newConfirmPassword = e.target.value
+  //   setConfirmPassword(newConfirmPassword)
+  // }
 
   const signup = async () => {
     if (!username || !password || !confirmPassword) {
@@ -56,7 +59,7 @@ const SignUp = ({ setIsSignUp }: { setIsSignUp: (isSignUp: boolean) => void }) =
           <input
             type="text"
             value={username}
-            onChange={changeUsername}
+            onChange={e => setUsername(e.target.value)}
             placeholder='Username' id="username" className='w-full p-2 border rounded'
           />
         </div>
@@ -65,7 +68,7 @@ const SignUp = ({ setIsSignUp }: { setIsSignUp: (isSignUp: boolean) => void }) =
           <input
             type="password"
             value={password}
-            onChange={changePassword}
+            onChange={e => setPassword(e.target.value)}
             placeholder='Password' id="password" className='w-full p-2 border rounded'
           />
         </div>
@@ -74,7 +77,7 @@ const SignUp = ({ setIsSignUp }: { setIsSignUp: (isSignUp: boolean) => void }) =
           <input
             type="password"
             value={confirmPassword}
-            onChange={changeConfirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}
             placeholder='Confirm Password' id="confirm-password" className='w-full p-2 border rounded'
           />
         </div>
